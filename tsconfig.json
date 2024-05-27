@@ -1,0 +1,3 @@
+{
+  "extends": "@nivo/typescript-config/base.json"
+}
