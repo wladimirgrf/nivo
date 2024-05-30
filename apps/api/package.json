@@ -1,0 +1,23 @@
+{
+  "name": "@nivo/api",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "devDependencies": {
+    "@nivo/eslint-config": "*",
+    "@nivo/prettier": "*",
+    "@nivo/tsconfig": "*",
+    "@types/node": "^20.12.13",
+    "tsx": "^4.11.0"
+  },
+  "dependencies": {
+    "@nivo/auth": "*"
+  },
+  "prettier": "@nivo/prettier",
+  "eslintConfig": {
+    "extends": [
+      "@nivo/eslint-config/node"
+    ]
+  }
+}
