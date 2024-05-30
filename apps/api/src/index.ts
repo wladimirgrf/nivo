@@ -1,4 +1,6 @@
-import { ability } from '@nivo/auth'
+import { defineAbilityFor } from '@nivo/auth'
+
+const ability = defineAbilityFor({ role: 'MEMBER' })
 
 const userCanInviteSomeoneElse = ability.can('invite', 'User')
 
