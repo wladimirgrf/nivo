@@ -5,6 +5,7 @@
     "dev": "tsx watch src/http/server.ts"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@nivo/eslint-config": "*",
     "@nivo/prettier": "*",
     "@nivo/tsconfig": "*",
@@ -27,5 +28,8 @@
     "extends": [
       "@nivo/eslint-config/node"
     ]
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }
