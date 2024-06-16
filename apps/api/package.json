@@ -2,7 +2,10 @@
   "name": "@nivo/api",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsx watch src/http/server.ts"
+    "dev": "npm run env:load tsx watch src/http/server.ts",
+    "db:migrate": "npm run env:load prisma migrate dev",
+    "db:studio": "npm run env:load prisma studio",
+    "env:load": "dotenv -e ../../.env --"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -11,6 +14,7 @@
     "@nivo/tsconfig": "*",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.13",
+    "dotenv-cli": "^7.4.2",
     "prisma": "^5.14.0",
     "tsx": "^4.11.0"
   },
@@ -20,6 +24,7 @@
     "@fastify/swagger": "^8.14.0",
     "@fastify/swagger-ui": "^3.1.0",
     "@nivo/auth": "*",
+    "@nivo/env": "*",
     "@prisma/client": "^5.14.0",
     "bcryptjs": "^2.4.3",
     "fastify": "^4.27.0",

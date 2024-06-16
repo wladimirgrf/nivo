@@ -2,6 +2,7 @@ import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import swagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
+import { env } from '@nivo/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -32,7 +33,15 @@ app.register(swagger, {
       description: 'Full-stack SaaS app with multi-tenant & RBAC.',
       version: '1.0.0',
     },
-    servers: [],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 })
@@ -42,7 +51,7 @@ app.register(swaggerUI, {
 })
 
 app.register(jwt, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 })
 
 app.register(cors)
@@ -54,6 +63,6 @@ app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(authenticateWithGithub)
 
-app.listen({ port: 3333 }).then(() => {
+app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log('HTTP server running')
 })
