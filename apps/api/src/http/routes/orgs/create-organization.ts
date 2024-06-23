@@ -42,7 +42,7 @@ export async function createOrganization(app: FastifyInstance) {
 
           if (organizationByDomain) {
             throw new BadRequestError(
-              'Another organization with same domain already exists!',
+              'Another organization with same domain already exists',
             )
           }
         }
