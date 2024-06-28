@@ -21,6 +21,7 @@ import { resetPassword } from './routes/auth/reset-password'
 import { acceptInvite } from './routes/invites/accept-invite'
 import { createInvite } from './routes/invites/create-invite'
 import { fetchInvites } from './routes/invites/fetch-invites'
+import { fetchPendingInvites } from './routes/invites/fetch-pending-invites'
 import { getInvite } from './routes/invites/get-invite'
 import { rejectInvite } from './routes/invites/reject-invite'
 import { revokeInvite } from './routes/invites/revoke-invite'
@@ -108,6 +109,7 @@ app.register(fetchInvites)
 app.register(acceptInvite)
 app.register(rejectInvite)
 app.register(revokeInvite)
+app.register(fetchPendingInvites)
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log('HTTP server running')
