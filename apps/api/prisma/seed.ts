@@ -8,12 +8,14 @@ async function seed() {
   await prisma.organization.deleteMany()
   await prisma.user.deleteMany()
 
+  const passwordHash = await hash('1234567', 1)
+
   const user1 = await prisma.user.create({
     data: {
-      name: faker.person.fullName(),
-      email: faker.internet.email(),
+      name: 'John Wick',
+      email: 'john@acme.com',
       avatarUrl: faker.image.avatarGitHub(),
-      passwordHash: await hash(faker.internet.password(), 1),
+      passwordHash,
     },
   })
 
@@ -22,7 +24,7 @@ async function seed() {
       name: faker.person.fullName(),
       email: faker.internet.email(),
       avatarUrl: faker.image.avatarGitHub(),
-      passwordHash: await hash(faker.internet.password(), 1),
+      passwordHash,
     },
   })
 
@@ -31,7 +33,7 @@ async function seed() {
       name: faker.person.fullName(),
       email: faker.internet.email(),
       avatarUrl: faker.image.avatarGitHub(),
-      passwordHash: await hash(faker.internet.password(), 1),
+      passwordHash,
     },
   })
 
