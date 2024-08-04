@@ -11,7 +11,11 @@ interface FetchOrganizationsResponse {
 
 export async function fetchOrganizations() {
   const result = await api
-    .get('organizations')
+    .get('organizations', {
+      next: {
+        tags: ['organizations'],
+      },
+    })
     .json<FetchOrganizationsResponse>()
 
   return result
