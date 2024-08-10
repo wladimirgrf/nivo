@@ -11,6 +11,7 @@ import { getMembership } from '@/http/get-membership'
 import { getOrganization } from '@/http/get-organization'
 
 import { removeMembershipAction } from './actions'
+import { UpdateMembershipRoleSelect } from './update-membership-role-select'
 
 export async function Memberships() {
   const currentOrg = getCurrentOrg()
@@ -77,6 +78,16 @@ export async function Memberships() {
                           Transfer ownership
                         </Button>
                       )}
+
+                      <UpdateMembershipRoleSelect
+                        membershipId={membership.id}
+                        value={membership.role}
+                        disabled={
+                          permissions?.cannot('update', 'User') ||
+                          membership.userId === myMembership.userId ||
+                          membership.userId === organization.ownerId
+                        }
+                      />
 
                       {permissions?.can('delete', 'User') && (
                         <form
