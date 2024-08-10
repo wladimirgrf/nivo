@@ -1,5 +1,5 @@
 import { organizationSchema } from '@nivo/auth'
-import { ArrowLeftRight, Crown } from 'lucide-react'
+import { ArrowLeftRight, Crown, UserMinus } from 'lucide-react'
 import Image from 'next/image'
 
 import { ability, getCurrentOrg } from '@/auth/auth'
@@ -9,6 +9,8 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { fetchMemberships } from '@/http/fetch-memberships'
 import { getMembership } from '@/http/get-membership'
 import { getOrganization } from '@/http/get-organization'
+
+import { removeMembershipAction } from './actions'
 
 export async function Memberships() {
   const currentOrg = getCurrentOrg()
@@ -74,6 +76,28 @@ export async function Memberships() {
                           <ArrowLeftRight className="nr-2 size-4" />
                           Transfer ownership
                         </Button>
+                      )}
+
+                      {permissions?.can('delete', 'User') && (
+                        <form
+                          action={removeMembershipAction.bind(
+                            null,
+                            membership.id,
+                          )}
+                        >
+                          <Button
+                            disabled={
+                              membership.userId === myMembership.userId ||
+                              membership.userId === organization.ownerId
+                            }
+                            type="submit"
+                            size="sm"
+                            variant="destructive"
+                          >
+                            <UserMinus className="mr-2 size-4" />
+                            Remove
+                          </Button>
+                        </form>
                       )}
                     </div>
                   </TableCell>
