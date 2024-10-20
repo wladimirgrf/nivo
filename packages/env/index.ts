@@ -5,7 +5,7 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     JWT_SECRET: z.string(),
-    SERVER_PORT: z.coerce.number().default(3444),
+    PORT: z.coerce.number().default(3444),
 
     GITHUB_OAUTH_CLIENT_ID: z.string(),
     GITHUB_OAUTH_CLIENT_SECRET: z.string(),
@@ -18,7 +18,7 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     JWT_SECRET: process.env.JWT_SECRET,
-    SERVER_PORT: process.env.SERVER_PORT,
+    PORT: process.env.PORT,
 
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
 
