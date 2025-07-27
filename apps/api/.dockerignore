@@ -1,0 +1,8 @@
+@types
+node_modules
+dist
+.env
+.vscode
+.idea
+.DS_Store
+Dockerfile
