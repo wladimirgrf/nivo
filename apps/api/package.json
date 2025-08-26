@@ -8,7 +8,12 @@
     "db:seed": "npm run env:load prisma db seed",
     "env:load": "dotenv -e ../../.env --",
     "build": "tsup",
-    "start": "node dist/http/server.js"
+    "start": "node dist/http/server.js",
+    "kind:create": "kind create cluster --config k8s/cluster.yaml --name nivo",
+    "k8s:down": "kind delete cluster --name nivo",
+    "k8s:namespace": "kubectl apply -f k8s/namespace.yaml",
+    "k8s:resources": "kubectl apply -f k8s/secrets.yaml -f k8s/deployment.yaml -f k8s/service.yaml",
+    "k8s:up": "npm run kind:create && npm run k8s:namespace && npm run k8s:resources"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",

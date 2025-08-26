@@ -9,7 +9,7 @@ COPY apps/api ./apps/api
 
 WORKDIR /repo/apps/api
 
-RUN npm install
+RUN npm ci
 RUN npx prisma generate
 RUN npm run build
 
