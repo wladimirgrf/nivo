@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db
+  namespace: nivo
+spec:
+  type: ExternalName
+  externalName: host.docker.internal
+  ports:
+  - port: 5533
+    protocol: TCP
