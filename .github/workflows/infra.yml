@@ -1,0 +1,38 @@
+name: Deploy Infrastructure
+
+on:
+  workflow_call:
+
+jobs:
+  deploy-infrastructure:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ secrets.AWS_REGION }}
+        role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+    
+    - name: Terraform Init
+      working-directory: ./iac
+      run: terraform init
+    
+    - name: Terraform Apply
+      working-directory: ./iac
+      run: terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}"
+    
+    - name: Get ECR Repository URL
+      working-directory: ./iac
+      id: ecr-url
+      run: echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
+    
+    - name: Get Cluster Name
+      working-directory: ./iac
+      id: cluster-name
+      run: echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT

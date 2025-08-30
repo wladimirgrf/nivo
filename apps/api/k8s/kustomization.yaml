@@ -5,9 +5,7 @@ namespace: nivo
 
 resources:
 - namespace.yaml
-- secrets.yaml
 - deployment.yaml
 - service.yaml
-- ingress.yaml
 - hpa.yaml
 - network-policy.yaml
