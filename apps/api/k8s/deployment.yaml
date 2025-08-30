@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nivo-api
+  namespace: nivo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nivo-api
+  template:
+    metadata:
+      labels:
+        app: nivo-api
+    spec:
+      containers:
+      - name: api
+        image: wladimirgrf/nivo:latest
+        ports:
+        - containerPort: 3444
+          name: http
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: NEXT_PUBLIC_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: nivo-secrets
+              key: NEXT_PUBLIC_API_URL
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: nivo-secrets
+              key: JWT_SECRET
+        - name: GITHUB_OAUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: nivo-secrets
+              key: GITHUB_OAUTH_CLIENT_ID
+        - name: GITHUB_OAUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: nivo-secrets
+              key: GITHUB_OAUTH_CLIENT_SECRET
+        - name: GITHUB_OAUTH_CLIENT_REDIRECT_URI
+          valueFrom:
+            secretKeyRef:
+              name: nivo-secrets
+              key: GITHUB_OAUTH_CLIENT_REDIRECT_URI
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: nivo-secrets
+              key: DATABASE_URL
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3444
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3444
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL 

@@ -1,0 +1,21 @@
+name: Main Pipeline
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  infra:
+    uses: ./.github/workflows/infra.yml
+    secrets: inherit
+
+  build:
+    needs: infra
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  deploy:
+    needs: build
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

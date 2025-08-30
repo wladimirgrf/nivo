@@ -1,0 +1,74 @@
+name: Deploy to EKS
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ secrets.AWS_REGION }}
+        role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+    
+    - name: Get Cluster Name
+      working-directory: ./iac
+      id: cluster-name
+      run: echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
+    
+    - name: Get ECR Repository URL
+      working-directory: ./iac
+      id: ecr-url
+      run: echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
+    
+    - name: Generate Image Tag
+      id: image-tag
+      run: echo "tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+    
+    - name: Update kubeconfig
+      run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ steps.cluster-name.outputs.cluster_name }}
+    
+    - name: Create namespace if not exists
+      run: kubectl create namespace nivo --dry-run=client -o yaml | kubectl apply -f -
+    
+    - name: Get Secrets from AWS Secrets Manager
+      id: aws-secrets
+      uses: aws-actions/aws-secretsmanager-get-secrets@v2
+      with:
+        secret-ids: |
+          prod/nivo/postgres
+          prod/github/oauth
+          prod/app
+        parse-json-secrets: true
+    
+    - name: Create Kubernetes Secrets
+      run: |
+        kubectl create secret generic nivo-secrets \
+          --from-literal=DATABASE_URL="${{ steps.aws-secrets.outputs.DATABASE_URL }}" \
+          --from-literal=GITHUB_OAUTH_CLIENT_ID="${{ steps.aws-secrets.outputs.GITHUB_OAUTH_CLIENT_ID }}" \
+          --from-literal=GITHUB_OAUTH_CLIENT_SECRET="${{ steps.aws-secrets.outputs.GITHUB_OAUTH_CLIENT_SECRET }}" \
+          --from-literal=GITHUB_OAUTH_CLIENT_REDIRECT_URI="${{ steps.aws-secrets.outputs.GITHUB_OAUTH_CLIENT_REDIRECT_URI }}" \
+          --from-literal=JWT_SECRET="${{ steps.aws-secrets.outputs.JWT_SECRET }}" \
+          --from-literal=NEXT_PUBLIC_API_URL="${{ steps.aws-secrets.outputs.NEXT_PUBLIC_API_URL }}" \
+          -n nivo \
+          --dry-run=client -o yaml | kubectl apply -f -
+    
+    - name: Update deployment image
+      run: |
+        ECR_URL="${{ steps.ecr-url.outputs.ecr_url }}"
+        IMAGE_TAG="${{ steps.image-tag.outputs.tag }}"
+        sed -i "s|image: .*|image: $ECR_URL:$IMAGE_TAG|g" apps/api/k8s/deployment.yaml
+    
+    - name: Deploy to EKS
+      run: kubectl apply -k apps/api/k8s/
+    
+    - name: Verify deployment
+      run: |
+        kubectl rollout status deployment/nivo-api -n nivo --timeout=300s
+        kubectl get pods -n nivo 

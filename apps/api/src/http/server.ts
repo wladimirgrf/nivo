@@ -19,6 +19,7 @@ import { getProfile } from './routes/auth/get-profile'
 import { requestPasswordRecover } from './routes/auth/request-password-recover'
 import { resetPassword } from './routes/auth/reset-password'
 import { getOrganizationBilling } from './routes/billing/get-organization-billing'
+import { healthCheck } from './routes/health/health-check'
 import { acceptInvite } from './routes/invites/accept-invite'
 import { createInvite } from './routes/invites/create-invite'
 import { fetchInvites } from './routes/invites/fetch-invites'
@@ -113,6 +114,8 @@ app.register(revokeInvite)
 app.register(fetchPendingInvites)
 
 app.register(getOrganizationBilling)
+
+app.register(healthCheck)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTP server running')
