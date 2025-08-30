@@ -3,7 +3,6 @@ node_modules
 
 # Environment and secrets
 .env
-secrets.yaml
 
 # Build outputs and cache
 .next/
