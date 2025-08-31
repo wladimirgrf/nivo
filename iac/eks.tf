@@ -38,17 +38,7 @@ data "aws_eks_cluster_auth" "main" {
   name = aws_eks_cluster.main.name
 }
 
-provider "kubernetes" {
-  host                   = aws_eks_cluster.main.endpoint
-  cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority[0].data)
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", aws_eks_cluster.main.name, "--region", "us-east-1"]
-  }
-}
-
-resource "kubernetes_config_map" "aws_auth" {
+resource "kubernetes_config_map_v1_data" "aws_auth" {
   metadata {
     name      = "aws-auth"
     namespace = "kube-system"
@@ -64,5 +54,6 @@ resource "kubernetes_config_map" "aws_auth" {
     ])
   }
 
+  force = true
   depends_on = [aws_eks_cluster.main]
 }
