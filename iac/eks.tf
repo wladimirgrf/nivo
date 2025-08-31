@@ -3,6 +3,11 @@ resource "aws_eks_cluster" "main" {
   role_arn = aws_iam_role.eks_cluster.arn
   version  = "1.33"
 
+  access_config {
+    authentication_mode                         = "API"
+    bootstrap_cluster_creator_admin_permissions = true
+  }
+
   vpc_config {
     subnet_ids              = aws_subnet.public[*].id
     endpoint_public_access  = true
@@ -36,24 +41,4 @@ resource "aws_eks_node_group" "main" {
 
 data "aws_eks_cluster_auth" "main" {
   name = aws_eks_cluster.main.name
-}
-
-resource "kubernetes_config_map_v1_data" "aws_auth" {
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-  data = {
-    mapRoles = yamlencode([
-      {
-        rolearn  = aws_iam_role.eks_nodes.arn
-        username = "system:node:{{EC2PrivateDNSName}}"
-        groups   = ["system:bootstrappers", "system:nodes"]
-      }
-    ])
-  }
-
-  force = true
-  depends_on = [aws_eks_cluster.main]
 }
