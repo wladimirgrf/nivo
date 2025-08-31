@@ -2,6 +2,13 @@ name: Deploy to EKS
 
 on:
   workflow_call:
+    inputs:
+      ecr_url:
+        required: true
+        type: string
+      cluster_name:
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -16,22 +23,12 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
         role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
     
-    - name: Get Cluster Name
-      working-directory: ./iac
-      id: cluster-name
-      run: echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
-    
-    - name: Get ECR Repository URL
-      working-directory: ./iac
-      id: ecr-url
-      run: echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
-    
     - name: Generate Image Tag
       id: image-tag
       run: echo "tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
     
     - name: Update kubeconfig
-      run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ steps.cluster-name.outputs.cluster_name }}
+      run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ inputs.cluster_name }}
     
     - name: Create namespace if not exists
       run: kubectl create namespace nivo --dry-run=client -o yaml | kubectl apply -f -
@@ -60,7 +57,7 @@ jobs:
     
     - name: Update deployment image
       run: |
-        ECR_URL="${{ steps.ecr-url.outputs.ecr_url }}"
+        ECR_URL="${{ inputs.ecr_url }}"
         IMAGE_TAG="${{ steps.image-tag.outputs.tag }}"
         sed -i "s|image: .*|image: $ECR_URL:$IMAGE_TAG|g" apps/api/k8s/deployment.yaml
     

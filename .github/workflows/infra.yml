@@ -7,6 +7,10 @@ jobs:
   create-infra:
     runs-on: ubuntu-latest
     
+    outputs:
+      ecr_url: ${{ steps.ecr-url.outputs.ecr_url }}
+      cluster_name: ${{ steps.cluster-name.outputs.cluster_name }}
+    
     steps:
     - uses: actions/checkout@v4
     
@@ -25,7 +29,7 @@ jobs:
     
     - name: Terraform Apply
       working-directory: ./iac
-      run: terraform apply -auto-approve"
+      run: terraform apply -auto-approve
     
     - name: Get ECR Repository URL
       working-directory: ./iac
