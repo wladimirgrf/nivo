@@ -20,8 +20,8 @@ jobs:
     - name: Debug Infra Outputs
       run: |
         echo "=== INFRA OUTPUTS ==="
-        echo "ECR URL: ${{ needs.infra.outputs.ecr_url }}"
-        echo "Cluster Name: ${{ needs.infra.outputs.cluster_name }}"
+        echo "ECR URL: '${{ needs.infra.outputs.ecr_url }}'"
+        echo "Cluster Name: '${{ needs.infra.outputs.cluster_name }}'"
         echo "====================="
 
   build:
