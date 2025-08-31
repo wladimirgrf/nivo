@@ -12,10 +12,6 @@ jobs:
   create-infra:
     runs-on: ubuntu-latest
     
-    outputs:
-      ecr_url: ${{ steps.terraform-outputs.outputs.ecr_url }}
-      cluster_name: ${{ steps.terraform-outputs.outputs.cluster_name }}
-    
     steps:
     - uses: actions/checkout@v4
     
@@ -42,22 +38,3 @@ jobs:
       run: |
         echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
         echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
-    
-    - name: Debug Step Outputs
-      run: |
-        echo "=== STEP OUTPUTS ==="
-        echo "ECR URL from step: '${{ steps.terraform-outputs.outputs.ecr_url }}'"
-        echo "Cluster Name from step: '${{ steps.terraform-outputs.outputs.cluster_name }}'"
-        echo "===================="
-
-  debug-job-outputs:
-    needs: create-infra
-    runs-on: ubuntu-latest
-    steps:
-    - name: Debug Job Outputs
-      run: |
-        echo "=== JOB OUTPUTS ==="
-        echo "ECR URL from job: '${{ needs.create-infra.outputs.ecr_url }}'"
-        echo "Cluster Name from job: '${{ needs.create-infra.outputs.cluster_name }}'"
-        echo "==================="
-

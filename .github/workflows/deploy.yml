@@ -17,11 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Debug Inputs
-      run: |
-        echo "ECR URL: ${{ inputs.ecr_url }}"
-        echo "Cluster Name: ${{ inputs.cluster_name }}"
-    
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
