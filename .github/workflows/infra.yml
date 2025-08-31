@@ -14,7 +14,6 @@ jobs:
     
     outputs:
       ecr_url: ${{ steps.terraform-outputs.outputs.ecr_url }}
-      test_ecr_url: ${{ steps.test-different-output.outputs.test_ecr_url }}
       cluster_name: ${{ steps.terraform-outputs.outputs.cluster_name }}
     
     steps:
@@ -50,11 +49,6 @@ jobs:
         echo "ECR URL from step: '${{ steps.terraform-outputs.outputs.ecr_url }}'"
         echo "Cluster Name from step: '${{ steps.terraform-outputs.outputs.cluster_name }}'"
         echo "===================="
-    
-    - name: Test Different Output Name
-      id: test-different-output
-      run: |
-        echo "test_ecr_url=BANANA" >> $GITHUB_OUTPUT
 
   debug-job-outputs:
     needs: create-infra
@@ -64,7 +58,6 @@ jobs:
       run: |
         echo "=== JOB OUTPUTS ==="
         echo "ECR URL from job: '${{ needs.create-infra.outputs.ecr_url }}'"
-        echo "Test ECR URL from job: '${{ needs.create-infra.outputs.test_ecr_url }}'"
         echo "Cluster Name from job: '${{ needs.create-infra.outputs.cluster_name }}'"
         echo "==================="
 
