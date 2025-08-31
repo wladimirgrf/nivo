@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
-
 terraform {
   required_providers {
     aws = {
@@ -9,4 +5,16 @@ terraform {
       version = "~> 6.0"
     }
   }
+  
+  backend "s3" {
+    bucket         = "nivo-tf-state"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "nivo-tf-locks"
+    encrypt        = true
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
 }
