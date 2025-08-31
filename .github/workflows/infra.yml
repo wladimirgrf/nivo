@@ -14,6 +14,7 @@ jobs:
     
     outputs:
       ecr_url: ${{ steps.terraform-outputs.outputs.ecr_url }}
+      test_ecr_url: ${{ steps.test-different-output.outputs.test_ecr_url }}
       cluster_name: ${{ steps.terraform-outputs.outputs.cluster_name }}
     
     steps:
@@ -40,10 +41,8 @@ jobs:
       working-directory: ./iac
       id: terraform-outputs
       run: |
-        ECR_URL=$(terraform output -raw ecr_repository_url)
-        CLUSTER_NAME=$(terraform output -raw cluster_name)
-        echo "ecr_url=$ECR_URL" >> $GITHUB_OUTPUT
-        echo "cluster_name=$CLUSTER_NAME" >> $GITHUB_OUTPUT
+        echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
+        echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
     
     - name: Debug Terraform Command
       working-directory: ./iac
@@ -61,6 +60,11 @@ jobs:
         echo "ECR URL from step: '${{ steps.terraform-outputs.outputs.ecr_url }}'"
         echo "Cluster Name from step: '${{ steps.terraform-outputs.outputs.cluster_name }}'"
         echo "===================="
+    
+    - name: Test Different Output Name
+      id: test-different-output
+      run: |
+        echo "test_ecr_url=${{ steps.terraform-outputs.outputs.ecr_url }}" >> $GITHUB_OUTPUT
 
   debug-job-outputs:
     needs: create-infra
@@ -70,6 +74,7 @@ jobs:
       run: |
         echo "=== JOB OUTPUTS ==="
         echo "ECR URL from job: '${{ needs.create-infra.outputs.ecr_url }}'"
+        echo "Test ECR URL from job: '${{ needs.create-infra.outputs.test_ecr_url }}'"
         echo "Cluster Name from job: '${{ needs.create-infra.outputs.cluster_name }}'"
         echo "==================="
 
