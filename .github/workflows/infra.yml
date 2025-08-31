@@ -42,4 +42,28 @@ jobs:
       run: |
         echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
         echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
+    
+    - name: Debug Terraform Command
+      working-directory: ./iac
+      run: |
+        echo "=== TERRAFORM OUTPUT COMMAND ==="
+        echo "Raw ECR output: $(terraform output -raw ecr_repository_url)"
+        echo "Raw cluster output: $(terraform output -raw cluster_name)"
+        echo "All outputs:"
+        terraform output
+        echo "================================"
+    
+    - name: Debug Step Outputs
+      run: |
+        echo "=== STEP OUTPUTS ==="
+        echo "ECR URL from step: '${{ steps.terraform-outputs.outputs.ecr_url }}'"
+        echo "Cluster Name from step: '${{ steps.terraform-outputs.outputs.cluster_name }}'"
+        echo "===================="
+    
+    - name: Debug Job Outputs
+      run: |
+        echo "=== JOB OUTPUTS ==="
+        echo "ECR URL from job: '${{ jobs.create-infra.outputs.ecr_url }}'"
+        echo "Cluster Name from job: '${{ jobs.create-infra.outputs.cluster_name }}'"
+        echo "==================="
 
