@@ -1,18 +1,31 @@
-# Dependencies and packages
-node_modules
+# Dependencies
+node_modules/
 
-# Environment and secrets
+# Environment
 .env
+.env.local
+.env.*.local
 
-# Build outputs and cache
+# Build outputs
 .next/
-build
-dist
-.turbo
+build/
+dist/
+.turbo/
 
-# Platform and deployment
-.vercel
+# Platform
+.vercel/
 
-# Logs and system files
+# Logs
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files
 .DS_Store
+Thumbs.db
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*

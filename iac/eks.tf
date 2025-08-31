@@ -1,10 +1,3 @@
-provider "kubernetes" {
-  host  = aws_eks_cluster.main.endpoint
-  token = data.aws_eks_cluster_auth.main.token
-
-  cluster_ca_certificate = base64decode(aws_eks_cluster.main.certificate_authority[0].data)
-}
-
 resource "aws_eks_cluster" "main" {
   name     = "nivo-cluster"
   role_arn = aws_iam_role.eks_cluster.arn
@@ -43,25 +36,4 @@ resource "aws_eks_node_group" "main" {
 
 data "aws_eks_cluster_auth" "main" {
   name = aws_eks_cluster.main.name
-}
-
-resource "kubernetes_config_map" "aws_auth" {
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-  data = {
-    mapRoles = yamlencode([
-      {
-        rolearn  = aws_iam_role.eks_nodes.arn
-        username = "system:node:{{EC2PrivateDNSName}}"
-        groups   = ["system:bootstrappers", "system:nodes"]
-      }
-    ])
-  }
-
-  depends_on = [
-    aws_eks_cluster.main,
-    aws_eks_node_group.main
-  ]
 }
