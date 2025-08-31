@@ -2,14 +2,15 @@ name: Create Infrastructure
 
 on:
   workflow_call:
+    outputs:
+      ecr_url: 
+        value: ${{ jobs.create-infra.outputs.ecr_url }}
+      cluster_name: 
+        value: ${{ jobs.create-infra.outputs.cluster_name }}
 
 jobs:
   create-infra:
     runs-on: ubuntu-latest
-    
-    outputs:
-      ecr_url: ${{ steps.ecr-url.outputs.ecr_url }}
-      cluster_name: ${{ steps.cluster-name.outputs.cluster_name }}
     
     steps:
     - uses: actions/checkout@v4
@@ -31,12 +32,8 @@ jobs:
       working-directory: ./iac
       run: terraform apply -auto-approve
     
-    - name: Get ECR Repository URL
+    - name: Get Terraform Outputs
       working-directory: ./iac
-      id: ecr-url
-      run: echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
-    
-    - name: Get Cluster Name
-      working-directory: ./iac
-      id: cluster-name
-      run: echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
+      run: |
+        echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
+        echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT

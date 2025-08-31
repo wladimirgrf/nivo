@@ -2,10 +2,6 @@ name: Build and Push Image
 
 on:
   workflow_call:
-    inputs:
-      ecr_url:
-        required: true
-        type: string
 
 jobs:
   build-and-push:
