@@ -2,6 +2,11 @@ name: Create Infrastructure
 
 on:
   workflow_call:
+    outputs:
+      ecr_url: 
+        value: ${{ jobs.create-infra.outputs.ecr_url }}
+      cluster_name: 
+        value: ${{ jobs.create-infra.outputs.cluster_name }}
 
 jobs:
   create-infra:

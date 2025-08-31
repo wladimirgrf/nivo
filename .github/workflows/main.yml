@@ -13,24 +13,13 @@ jobs:
     uses: ./.github/workflows/infra.yml
     secrets: inherit
 
-  debug-infra-outputs:
-    needs: infra
-    runs-on: ubuntu-latest
-    steps:
-    - name: Debug Infra Outputs
-      run: |
-        echo "=== INFRA OUTPUTS ==="
-        echo "ECR URL: '${{ needs.infra.outputs.ecr_url }}'"
-        echo "Cluster Name: '${{ needs.infra.outputs.cluster_name }}'"
-        echo "====================="
-
   build:
     needs: infra
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
   deploy:
-    needs: build
+    needs: [infra, build]
     uses: ./.github/workflows/deploy.yml
     with:
       ecr_url: ${{ needs.infra.outputs.ecr_url }}
