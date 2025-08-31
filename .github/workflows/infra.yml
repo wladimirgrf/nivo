@@ -12,6 +12,10 @@ jobs:
   create-infra:
     runs-on: ubuntu-latest
     
+    outputs:
+      ecr_url: ${{ steps.terraform-outputs.outputs.ecr_url }}
+      cluster_name: ${{ steps.terraform-outputs.outputs.cluster_name }}
+    
     steps:
     - uses: actions/checkout@v4
     
@@ -34,6 +38,14 @@ jobs:
     
     - name: Get Terraform Outputs
       working-directory: ./iac
+      id: terraform-outputs
       run: |
         echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
         echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
+    
+    - name: Debug Terraform Outputs
+      run: |
+        echo "=== TERRAFORM OUTPUTS ==="
+        echo "ECR URL: ${{ steps.terraform-outputs.outputs.ecr_url }}"
+        echo "Cluster Name: ${{ steps.terraform-outputs.outputs.cluster_name }}"
+        echo "========================="
