@@ -59,11 +59,15 @@ jobs:
         echo "ECR URL from step: '${{ steps.terraform-outputs.outputs.ecr_url }}'"
         echo "Cluster Name from step: '${{ steps.terraform-outputs.outputs.cluster_name }}'"
         echo "===================="
-    
+
+  debug-job-outputs:
+    needs: create-infra
+    runs-on: ubuntu-latest
+    steps:
     - name: Debug Job Outputs
       run: |
         echo "=== JOB OUTPUTS ==="
-        echo "ECR URL from job: '${{ jobs.create-infra.outputs.ecr_url }}'"
-        echo "Cluster Name from job: '${{ jobs.create-infra.outputs.cluster_name }}'"
+        echo "ECR URL from job: '${{ needs.create-infra.outputs.ecr_url }}'"
+        echo "Cluster Name from job: '${{ needs.create-infra.outputs.cluster_name }}'"
         echo "==================="
 
