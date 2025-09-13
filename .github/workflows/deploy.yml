@@ -43,6 +43,12 @@ jobs:
           prod/app
         parse-json-secrets: true
     
+    - name: Debug Secrets Outputs
+      run: |
+        echo "=== DEBUG: All outputs from aws-secrets ==="
+        echo "Available outputs:"
+        echo "${{ steps.aws-secrets.outputs }}"
+    
     - name: Create Kubernetes Secrets
       run: |
         DB_USERNAME="${{ steps.aws-secrets.outputs.username }}"
