@@ -45,6 +45,8 @@ jobs:
     
     - name: Create Kubernetes Secrets
       run: |
+        echo "${{ env }}"
+        echo "${{ env.PROD_NIVO_POSTGRES_USERNAME }}"
         DB_USERNAME="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_USERNAME }}"
         DB_PASSWORD="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_PASSWORD }}"
         DB_HOST="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_HOST }}"
