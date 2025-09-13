@@ -46,8 +46,7 @@ jobs:
     - name: Debug Secrets Outputs
       run: |
         echo "=== DEBUG: All outputs from aws-secrets ==="
-        echo "Available outputs:"
-        echo "${{ steps.aws-secrets.outputs }}"
+        echo '${{ toJson(steps.aws-secrets.outputs) }}'
     
     - name: Create Kubernetes Secrets
       run: |
