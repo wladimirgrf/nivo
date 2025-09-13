@@ -45,21 +45,19 @@ jobs:
     
     - name: Create Kubernetes Secrets
       run: |
-        echo "${{ env }}"
-        echo "${{ env.PROD_NIVO_POSTGRES_USERNAME }}"
-        DB_USERNAME="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_USERNAME }}"
-        DB_PASSWORD="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_PASSWORD }}"
-        DB_HOST="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_HOST }}"
-        DB_PORT="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_PORT }}"
-        DB_NAME="${{ steps.aws-secrets.outputs.PROD_NIVO_POSTGRES_DBNAME }}"
+        DB_USERNAME="${{ env.PROD_NIVO_POSTGRES_USERNAME }}"
+        DB_PASSWORD="${{ env.PROD_NIVO_POSTGRES_PASSWORD }}"
+        DB_HOST="${{ env.PROD_NIVO_POSTGRES_HOST }}"
+        DB_PORT="${{ env.PROD_NIVO_POSTGRES_PORT }}"
+        DB_NAME="${{ env.PROD_NIVO_POSTGRES_DBNAME }}"
         
         kubectl create secret generic nivo-secrets \
           --from-literal=DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}" \
-          --from-literal=GITHUB_OAUTH_CLIENT_ID="${{ steps.aws-secrets.outputs.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_ID }}" \
-          --from-literal=GITHUB_OAUTH_CLIENT_SECRET="${{ steps.aws-secrets.outputs.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_SECRET }}" \
-          --from-literal=GITHUB_OAUTH_CLIENT_REDIRECT_URI="${{ steps.aws-secrets.outputs.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_REDIRECT_URI }}" \
-          --from-literal=JWT_SECRET="${{ steps.aws-secrets.outputs.PROD_APP_JWT_SECRET }}" \
-          --from-literal=NEXT_PUBLIC_API_URL="${{ steps.aws-secrets.outputs.PROD_APP__NEXT_PUBLIC_API_URL }}" \
+          --from-literal=GITHUB_OAUTH_CLIENT_ID="${{ env.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_ID }}" \
+          --from-literal=GITHUB_OAUTH_CLIENT_SECRET="${{ env.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_SECRET }}" \
+          --from-literal=GITHUB_OAUTH_CLIENT_REDIRECT_URI="${{ env.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_REDIRECT_URI }}" \
+          --from-literal=JWT_SECRET="${{ env.PROD_APP_JWT_SECRET }}" \
+          --from-literal=NEXT_PUBLIC_API_URL="${{ env.PROD_APP_NEXT_PUBLIC_API_URL }}" \
           -n nivo \
           --dry-run=client -o yaml | kubectl apply -f -
     
