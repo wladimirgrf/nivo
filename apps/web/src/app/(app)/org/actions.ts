@@ -17,7 +17,7 @@ const organizationSchema = z
       .refine(
         (value) => {
           if (value) {
-            const domainRegex = /^[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
+            const domainRegex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
             return domainRegex.test(value)
           }
 
