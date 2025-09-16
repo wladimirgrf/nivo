@@ -17,6 +17,10 @@ resource "aws_eks_cluster" "main" {
   depends_on = [
     aws_iam_role_policy_attachment.eks_cluster_policy
   ]
+
+  tags = {
+    managed_by = "terraform"
+  }
 }
 
 resource "aws_eks_node_group" "main" {
@@ -37,12 +41,16 @@ resource "aws_eks_node_group" "main" {
     aws_iam_role_policy_attachment.eks_cni_policy,
     aws_iam_role_policy_attachment.ec2_container_registry_read_only
   ]
+
+  tags = {
+    managed_by = "terraform"
+  }
 }
 
 resource "aws_eks_access_entry" "github_actions" {
-  cluster_name      = aws_eks_cluster.main.name
-  principal_arn     = var.github_actions_role_arn
-  type             = "STANDARD"
+  cluster_name  = aws_eks_cluster.main.name
+  principal_arn = var.github_actions_role_arn
+  type          = "STANDARD"
 }
 
 resource "aws_eks_access_policy_association" "github_actions_admin" {
@@ -56,3 +64,4 @@ resource "aws_eks_access_policy_association" "github_actions_admin" {
 
   depends_on = [aws_eks_access_entry.github_actions]
 }
+

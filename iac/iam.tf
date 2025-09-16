@@ -1,5 +1,9 @@
+# =============================================================================
+# EKS CLUSTER IAM CONFIGURATION
+# =============================================================================
+
 resource "aws_iam_role" "eks_cluster" {
-  name = "eks-cluster-role"
+  name = "nivo-cluster-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -13,6 +17,10 @@ resource "aws_iam_role" "eks_cluster" {
       }
     ]
   })
+
+  tags = {
+    managed_by = "terraform"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
@@ -21,7 +29,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 resource "aws_iam_role" "eks_nodes" {
-  name = "eks-node-group-role"
+  name = "nivo-node-group-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -35,6 +43,10 @@ resource "aws_iam_role" "eks_nodes" {
       }
     ]
   })
+
+  tags = {
+    managed_by = "terraform"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_worker_policy" {

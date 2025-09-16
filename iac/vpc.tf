@@ -8,7 +8,8 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
 
   tags = {
-    Name = "nivo-vpc"
+    Name       = "nivo-vpc"
+    managed_by = "terraform"
   }
 }
 
@@ -21,7 +22,8 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "nivo-public-${count.index + 1}"
+    Name       = "nivo-public-${count.index + 1}"
+    managed_by = "terraform"
   }
 }
 
@@ -29,7 +31,8 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "nivo-igw"
+    Name       = "nivo-igw"
+    managed_by = "terraform"
   }
 }
 
@@ -42,7 +45,8 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "nivo-public-rt"
+    Name       = "nivo-public-rt"
+    managed_by = "terraform"
   }
 }
 
