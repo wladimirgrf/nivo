@@ -1,6 +1,6 @@
 'use server'
 
-import { env } from '@nivo/env'
+import { webEnv as env } from '@nivo/env'
 import { redirect } from 'next/navigation'
 
 export async function signInWithGithub() {

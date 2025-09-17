@@ -1,4 +1,4 @@
-import { env } from '@nivo/env'
+import { webEnv as env } from '@nivo/env'
 import { getCookie } from 'cookies-next'
 import type { CookiesFn } from 'cookies-next/lib/types'
 import ky from 'ky'

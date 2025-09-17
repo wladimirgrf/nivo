@@ -1,4 +1,4 @@
-import { env } from '@nivo/env'
+import { apiEnv as env } from '@nivo/env'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
