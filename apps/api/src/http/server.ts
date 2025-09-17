@@ -2,7 +2,7 @@ import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import swagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
-import { apiEnv as env } from '@nivo/env'
+import { apiEnv as env } from '@nivo/env/api'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
