@@ -1,17 +1,17 @@
-name: Deploy to EKS
+name: Publish to EKS
 
 on:
   workflow_call:
     inputs:
-      ecr_url:
+      eks_cluster_name:
         required: true
         type: string
-      cluster_name:
+      ecr_image_url:
         required: true
         type: string
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     
     steps:
@@ -23,17 +23,13 @@ jobs:
         aws-region: us-east-1
         role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
     
-    - name: Generate Image Tag
-      id: image-tag
-      run: echo "tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
-    
     - name: Update kubeconfig
-      run: aws eks update-kubeconfig --region us-east-1 --name ${{ inputs.cluster_name }}
+      run: aws eks update-kubeconfig --region us-east-1 --name ${{ inputs.eks_cluster_name }}
     
     - name: Create namespace if not exists
       run: kubectl create namespace nivo --dry-run=client -o yaml | kubectl apply -f -
     
-    - name: Get Secrets from AWS Secrets Manager
+    - name: Get AWS Secrets
       id: aws-secrets
       uses: aws-actions/aws-secretsmanager-get-secrets@v2
       with:
@@ -57,20 +53,18 @@ jobs:
           --from-literal=GITHUB_OAUTH_CLIENT_SECRET="${{ env.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_SECRET }}" \
           --from-literal=GITHUB_OAUTH_CLIENT_REDIRECT_URI="${{ env.PROD_GITHUB_OAUTH_GITHUB_OAUTH_CLIENT_REDIRECT_URI }}" \
           --from-literal=JWT_SECRET="${{ env.PROD_APP_JWT_SECRET }}" \
-          --from-literal=NEXT_PUBLIC_API_URL="${{ env.PROD_APP_NEXT_PUBLIC_API_URL }}" \
           -n nivo \
           --dry-run=client -o yaml | kubectl apply -f -
     
     - name: Update deployment image
       run: |
-        ECR_URL="${{ inputs.ecr_url }}"
-        IMAGE_TAG="${{ steps.image-tag.outputs.tag }}"
-        sed -i "s|image: .*|image: $ECR_URL:$IMAGE_TAG|g" apps/api/k8s/deployment.yaml
+        IMAGE_URL="${{ inputs.ecr_image_url }}"
+        sed -i "s|image: .*|image: $IMAGE_URL|g" apps/api/k8s/deployment.yaml
     
-    - name: Deploy to EKS
+    - name: Publish to EKS
       run: kubectl apply -k apps/api/k8s/
     
-    - name: Verify deployment
+    - name: Status check
       run: |
         kubectl rollout status deployment/nivo-api -n nivo --timeout=300s
         kubectl get pods -n nivo 

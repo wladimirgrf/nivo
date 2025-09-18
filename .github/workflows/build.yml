@@ -2,10 +2,20 @@ name: Build and Push Image
 
 on:
   workflow_call:
+    inputs:
+      ecr_repo_name:
+        required: true
+        type: string
+    outputs:
+      ecr_image_url:
+        value: ${{ jobs.build-and-push.outputs.ecr_image_url }}
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    
+    outputs:
+      ecr_image_url: ${{ steps.build-push.outputs.image }}
     
     steps:
     - uses: actions/checkout@v4
@@ -25,9 +35,10 @@ jobs:
       run: echo "tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
     
     - name: Build and Push Image
+      id: build-push
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: nivo-api
+        ECR_REPOSITORY: ${{ inputs.ecr_repo_name }}
         IMAGE_TAG: ${{ steps.image-tag.outputs.tag }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f apps/api/Dockerfile .

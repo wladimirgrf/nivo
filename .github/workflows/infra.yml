@@ -3,18 +3,18 @@ name: Create Infrastructure
 on:
   workflow_call:
     outputs:
-      ecr_url: 
-        value: ${{ jobs.create-infra.outputs.ecr_url }}
-      cluster_name: 
-        value: ${{ jobs.create-infra.outputs.cluster_name }}
+      eks_cluster_name: 
+        value: ${{ jobs.create-infra.outputs.eks_cluster_name}}
+      ecr_repo_name:
+        value: ${{ jobs.create-infra.outputs.ecr_repo_name }}
 
 jobs:
   create-infra:
     runs-on: ubuntu-latest
     
     outputs:
-      ecr_url: ${{ steps.terraform-outputs.outputs.ecr_url }}
-      cluster_name: ${{ steps.terraform-outputs.outputs.cluster_name }}
+      eks_cluster_name: ${{ steps.terraform-outputs.outputs.eks_cluster_name }}
+      ecr_repo_name: ${{ steps.terraform-outputs.outputs.ecr_repo_name }}
     
     steps:
     - uses: actions/checkout@v4
@@ -42,5 +42,5 @@ jobs:
       working-directory: ./iac
       id: terraform-outputs
       run: |
-        echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
-        echo "cluster_name=$(terraform output -raw cluster_name)" >> $GITHUB_OUTPUT
+        echo "eks_cluster_name=$(terraform output -raw eks_cluster_name)" >> $GITHUB_OUTPUT
+        echo "ecr_repo_name=$(terraform output -raw ecr_repo_name)" >> $GITHUB_OUTPUT

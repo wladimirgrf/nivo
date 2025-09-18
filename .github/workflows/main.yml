@@ -16,12 +16,14 @@ jobs:
   build:
     needs: infra
     uses: ./.github/workflows/build.yml
+    with:
+      ecr_repo_name: ${{ needs.infra.outputs.ecr_repo_name}}
     secrets: inherit
 
-  deploy:
+  publish:
     needs: [infra, build]
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/publish.yml
     with:
-      ecr_url: ${{ needs.infra.outputs.ecr_url }}
-      cluster_name: ${{ needs.infra.outputs.cluster_name }}
+      eks_cluster_name: ${{ needs.infra.outputs.eks_cluster_name }}
+      ecr_image_url: ${{ needs.build.outputs.ecr_image_url }}
     secrets: inherit
