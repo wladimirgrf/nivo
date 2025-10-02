@@ -95,42 +95,13 @@ graph LR
 
 ### 🛠️ Technology Stack
 
-<table>
-<tr>
-<td align="center" width="33%">
-
-**🖥️ Frontend**
-- Next.js 15 + React 19 RC
-- Radix UI + Tailwind CSS
-- TanStack Query
-- Intercepting Routes
-- Dark/light theme system
-
-</td>
-<td align="center" width="33%">
-
-**⚙️ Backend**
-- Fastify + TypeScript
-- Prisma + PostgreSQL
-- JWT authentication
-- OpenAPI documentation
-- Zod validation
-- CASL authorization
-
-</td>
-<td align="center" width="33%">
-
-**☁️ Infrastructure**
-- Kubernetes with auto-scaling
-- Terraform with remote state
-- Docker multi-stage builds
-- GitHub Actions CI/CD with OIDC
-- AWS: ECR, EKS, VPC
-- AWS Secrets Manager
-
-</td>
-</tr>
-</table>
+| 🖥️ **Frontend** | ⚙️ **Backend** | ☁️ **Infrastructure** |
+|------------------|-----------------|----------------------|
+| Next.js 15 + React 19 RC | Fastify + TypeScript + Prisma ORM | Kubernetes (EKS) with auto-scaling |
+| Radix UI + Tailwind CSS | PostgreSQL with advanced indexing | Terraform IaC with remote state |
+| TanStack Query + Intercepting Routes | JWT authentication + OpenAPI documentation | Docker multi-stage builds |
+| Dark/light theme system | Zod validation + CASL authorization | GitHub Actions CI/CD with OIDC |
+| TypeScript + ESLint + Prettier | Health checks + Error handling | AWS: ECR, EKS, VPC, Secrets Manager |
 
 ## 🔐 Security & Infrastructure
 
