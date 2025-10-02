@@ -1,26 +1,21 @@
-# Nivo - Enterprise Multi-Tenant SaaS Platform
+# nivo
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Fastify](https://img.shields.io/badge/Fastify-202020?style=for-the-badge&logo=fastify&logoColor=white)](https://www.fastify.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Kubernetes](https://img.shields.io/badge/kubernetes-326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
-[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge)](https://github.com/your-username/nivo)
-[![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=for-the-badge)](https://github.com/your-username/nivo)
-[![Security](https://img.shields.io/badge/security-A+-brightgreen?style=for-the-badge)](https://github.com/your-username/nivo)
-
-A production-ready, cloud-native SaaS platform demonstrating advanced software engineering, modern DevOps practices, and scalable infrastructure design.
-
-> 🚀 **Enterprise-Grade SaaS Platform** | 🏗️ **Full-Stack TypeScript** | ☁️ **AWS EKS Production Ready** | 🔐 **Enterprise Security**
+<p float="left">
+  <img alt="terraform" src=".github/assets/terraform.svg" height="50"/> &nbsp;
+  <img alt="aws" src=".github/assets/aws.svg" height="50" /> &nbsp;
+  <img alt="kubernets" src=".github/assets/kubernetes.svg" height="50"/> &nbsp;
+  <img alt="fastify" src=".github/assets/fastify.svg" height="50"/> &nbsp;
+  <img alt="nextjs" src=".github/assets/nextjs.svg" height="50"/> &nbsp;
+  <img alt="typescript" src=".github/assets/typescript.svg" height="50"/> &nbsp;
+  <img alt="prisma" src=".github/assets/prisma.svg" height="50"/> &nbsp;
+  <img alt="postgressql" src=".github/assets/postgressql.svg" height="50"/> &nbsp;
+  <img alt="docker" src=".github/assets/docker.svg" height="50"/> &nbsp;
+  <img alt="swagger" src=".github/assets/swagger.svg" height="50"/> 
+</p>
 
 ## 🎯 Overview
 
-**Nivo** is a sophisticated multi-tenant SaaS platform featuring organization management, project collaboration, and enterprise-grade security. Built with modern technologies and deployed on AWS EKS with full CI/CD automation.
+**Nivo** is a multi-tenant SaaS platform featuring organization management, project collaboration, and enterprise-grade security. Built with modern technologies and deployed on AWS EKS with full CI/CD automation.
 
 ### ✨ Key Features
 
@@ -33,18 +28,6 @@ A production-ready, cloud-native SaaS platform demonstrating advanced software e
 | 🔑 **Dual Authentication** | GitHub OAuth + email/password | Flexible user access |
 | 💳 **Billing Infrastructure** | Ready for subscription management | Revenue generation ready |
 
-### 🎯 Target Audiences
-
-**👨‍💻 Technical Audience:**
-- Full-stack developers seeking modern SaaS architecture
-- DevOps engineers interested in cloud-native deployments
-- Security professionals evaluating enterprise-grade solutions
-
-**💼 Business Audience:**
-- CTOs looking for scalable SaaS platforms
-- Product managers evaluating multi-tenant solutions
-- Enterprise clients requiring secure collaboration tools
-
 ## 🏗️ Architecture
 
 ### 📁 Monorepo Structure
@@ -52,12 +35,12 @@ A production-ready, cloud-native SaaS platform demonstrating advanced software e
 nivo/
 ├── apps/
 │   ├── api/          # Fastify REST API with OpenAPI
-│   └── web/          # Next.js 15 App Router frontend
+│   └── web/        # Next.js 15 App Router frontend
 ├── packages/
-│   ├── auth/         # Shared CASL authorization
-│   └── env/          # Type-safe environment management
-├── iac/             # Terraform infrastructure
-└── .github/         # CI/CD with OIDC
+│   ├── auth/       # Shared CASL authorization
+│   └── env/        # Type-safe environment management
+├── iac/               # Terraform infrastructure
+└── .github/        # CI/CD with OIDC
 ```
 
 ### 🏛️ System Architecture
