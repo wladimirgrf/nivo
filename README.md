@@ -13,6 +13,9 @@
   <img alt="swagger" src=".github/assets/swagger.svg" height="50"/> 
 </p>
 
+
+
+
 ## 🎯 Overview
 
 **Nivo** is a multi-tenant SaaS platform featuring organization management, project collaboration, and enterprise-grade security. Built with modern technologies and deployed on AWS EKS with full CI/CD automation.
@@ -99,27 +102,31 @@ graph LR
 **🖥️ Frontend**
 - Next.js 15 + React 19 RC
 - Radix UI + Tailwind CSS
-- TanStack Query + Intercepting Routes
+- TanStack Query
+- Intercepting Routes
 - Dark/light theme system
 
 </td>
 <td align="center" width="33%">
 
 **⚙️ Backend**
-- Fastify + TypeScript + Prisma ORM
-- PostgreSQL with advanced indexing
-- JWT authentication + OpenAPI documentation
-- Zod validation + CASL authorization
+- Fastify + TypeScript
+- Prisma + PostgreSQL
+- JWT authentication
+- OpenAPI documentation
+- Zod validation
+- CASL authorization
 
 </td>
 <td align="center" width="33%">
 
 **☁️ Infrastructure**
-- Kubernetes (EKS) with auto-scaling
-- Terraform IaC with remote state
+- Kubernetes with auto-scaling
+- Terraform with remote state
 - Docker multi-stage builds
 - GitHub Actions CI/CD with OIDC
-- AWS: ECR, EKS, VPC, Secrets Manager
+- AWS: ECR, EKS, VPC
+- AWS Secrets Manager
 
 </td>
 </tr>
@@ -217,52 +224,7 @@ graph TB
 ```
 
 ### 🗄️ Database Design
-
-```mermaid
-erDiagram
-    User ||--o{ Organization : owns
-    User ||--o{ Membership : has
-    User ||--o{ Project : owns
-    User ||--o{ Invite : creates
-    
-    Organization ||--o{ Membership : contains
-    Organization ||--o{ Project : contains
-    Organization ||--o{ Invite : sends
-    
-    User {
-        string id PK
-        string email UK
-        string name
-        string passwordHash
-        string avatarUrl
-        datetime createdAt
-        datetime updatedAt
-    }
-    
-    Organization {
-        string id PK
-        string name
-        string slug UK
-        string domain UK
-        string avatarUrl
-        boolean shouldAttachUsersByDomain
-        string ownerId FK
-        datetime createdAt
-        datetime updatedAt
-    }
-    
-    Project {
-        string id PK
-        string name
-        string description
-        string slug UK
-        string avatarUrl
-        string organizationId FK
-        string ownerId FK
-        datetime createdAt
-        datetime updatedAt
-    }
-```
+![](.github/assets/erd.png)
 
 ### 📊 Database Features
 
