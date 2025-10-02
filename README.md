@@ -34,13 +34,13 @@
 ```
 nivo/
 ├── apps/
-│   ├── api/          # Fastify REST API with OpenAPI
-│   └── web/        # Next.js 15 App Router frontend
+│   ├── api/     # Fastify REST API with OpenAPI
+│   └── web/     # Next.js 15 App Router frontend
 ├── packages/
-│   ├── auth/       # Shared CASL authorization
-│   └── env/        # Type-safe environment management
-├── iac/               # Terraform infrastructure
-└── .github/        # CI/CD with OIDC
+│   ├── auth/    # Shared CASL authorization
+│   └── env/     # Type-safe environment management
+├── iac/         # Terraform infrastructure
+└── .github/     # CI/CD with OIDC
 ```
 
 ### 🏛️ System Architecture
