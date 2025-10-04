@@ -105,26 +105,42 @@ graph LR
 
 ## 🔐 Security & Infrastructure
 
-### 🛡️ Advanced Authorization System
+### 🛡️ Simple & Powerful Authorization
+
+The CASL-based authorization system is **extremely easy to use and extend**:
 
 ```typescript
-// CASL-powered permission system with granular control
-export const permissions: Record<Role, PermissionsByRole> = {
-  ADMIN(user, { can, cannot }) {
-    can('manage', 'all')
-    can(['transfer_ownership', 'update'], 'Organization', {
-      ownerId: { $eq: user.id }
-    })
-  },
-  MEMBER(user, { can }) {
-    can(['create', 'get'], 'Project')
-    can(['update', 'delete'], 'Project', { ownerId: { $eq: user.id } })
-  },
-  BILLING(_, { can }) {
-    can('manage', 'Billing')
-  }
+// ✅ Create ability for any user - works everywhere!
+const ability = defineAbilityFor({ id: userId, role: 'MEMBER' })
+
+// ✅ Check permissions with simple API
+if (ability.can('update', 'Project', { ownerId: user.id })) {
+  // User can update this specific project
+}
+
+if (ability.can('transfer_ownership', organization)) {
+  // Show transfer ownership button
+}
+
+// ✅ Conditional UI based on permissions
+{ability.can('delete', 'User') && (
+  <Button>Remove Member</Button>
+)}
+
+// ✅ Adding new permissions is trivial
+MEMBER(user, { can }) {
+  can('create', 'Project')
+  can('update', 'Project', { ownerId: { $eq: user.id } })
+  // ✨ New permission: just one line!
+  can('invite', 'Project', { ownerId: { $eq: user.id } })
 }
 ```
+
+**Why is it so easy?**
+- 🎯 **One API**: Same `defineAbilityFor()` works in any app
+- 🔄 **Reusable**: Same rules work everywhere (frontend, backend, server actions)
+- 🚀 **Extensible**: Add new permissions without breaking existing ones
+- 🛡️ **Type-safe**: TypeScript ensures you don't make mistakes
 
 ### 🔒 Security Features Matrix
 
