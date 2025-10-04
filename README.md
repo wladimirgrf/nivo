@@ -8,7 +8,7 @@
   <img alt="nextjs" src=".github/assets/nextjs.svg" height="50"/> &nbsp;
   <img alt="typescript" src=".github/assets/typescript.svg" height="50"/> &nbsp;
   <img alt="prisma" src=".github/assets/prisma.svg" height="50"/> &nbsp;
-  <img alt="postgressql" src=".github/assets/postgressql.svg" height="50"/> &nbsp;
+  <img alt="postgresql" src=".github/assets/postgresql.svg" height="50"/> &nbsp;
   <img alt="docker" src=".github/assets/docker.svg" height="50"/> &nbsp;
   <img alt="swagger" src=".github/assets/swagger.svg" height="50"/> 
 </p>
@@ -196,15 +196,6 @@ graph TB
 
 ### 🗄️ Database Design
 ![](.github/assets/erd.png)
-
-### 📊 Database Features
-
-| Feature | Implementation | Benefit |
-|---------|----------------|---------|
-| **Primary Keys** | UUID with proper indexing | Global uniqueness |
-| **Relationships** | Cascading deletes with foreign keys | Data integrity |
-| **Migrations** | Prisma with version control | Schema evolution |
-| **Performance** | Optimized queries with indexes | Fast response times |
 
 ## 📊 API & Development
 
