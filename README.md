@@ -2,7 +2,7 @@
 
 <p float="left">
   <img alt="terraform" src=".github/assets/terraform.svg" height="50"/> &nbsp;
-  <img alt="aws" src=".github/assets/aws.svg" height="50" /> &nbsp;
+  <img alt="aws" src=".github/assets/aws.svg" height="38" /> &nbsp;
   <img alt="kubernets" src=".github/assets/kubernetes.svg" height="50"/> &nbsp;
   <img alt="fastify" src=".github/assets/fastify.svg" height="50"/> &nbsp;
   <img alt="nextjs" src=".github/assets/nextjs.svg" height="50"/> &nbsp;
