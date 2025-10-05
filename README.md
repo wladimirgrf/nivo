@@ -14,8 +14,6 @@
 </p>
 
 
-
-
 ## 🎯 Overview
 
 **Nivo** is a multi-tenant SaaS platform featuring organization management, project collaboration, and enterprise-grade security. Built with modern technologies and deployed on AWS EKS with full CI/CD automation.
@@ -46,53 +44,6 @@ nivo/
 └── .github/     # CI/CD with OIDC
 ```
 
-### 🏛️ System Architecture
-
-```mermaid
-graph TB
-    subgraph "Frontend Layer"
-        A[Next.js 15 App] --> B[React 19 Components]
-        B --> C[TanStack Query]
-        C --> D[Radix UI Components]
-    end
-    
-    subgraph "API Layer"
-        E[Fastify Server] --> F[JWT Middleware]
-        F --> G[CASL Authorization]
-        G --> H[Zod Validation]
-    end
-    
-    subgraph "Data Layer"
-        I[PostgreSQL] --> J[Prisma ORM]
-        J --> K[Database Migrations]
-    end
-    
-    subgraph "Infrastructure"
-        L[AWS EKS] --> M[Kubernetes Pods]
-        M --> N[HPA Auto-scaling]
-        O[Terraform] --> L
-        P[ECR Registry] --> L
-    end
-    
-    A --> E
-    E --> I
-    L --> E
-    L --> I
-```
-
-### 🔄 CI/CD Pipeline
-
-```mermaid
-graph LR
-    A[Code Push] --> B[GitHub Actions]
-    B --> C[Build Docker Image]
-    C --> D[Push to ECR]
-    D --> E[Deploy to EKS]
-    E --> F[Rolling Update]
-    F --> G[Health Check]
-    G --> H[Traffic Routing]
-```
-
 ### 🛠️ Technology Stack
 
 | 🖥️ **Frontend** | ⚙️ **Backend** | ☁️ **Infrastructure** |
@@ -103,7 +54,35 @@ graph LR
 | Dark/light theme system | Zod validation + CASL authorization | GitHub Actions CI/CD with OIDC |
 | TypeScript + ESLint + Prettier | Health checks + Error handling | AWS: ECR, EKS, VPC, Secrets Manager |
 
-## 🔐 Security & Infrastructure
+## 📱 App Experience
+
+### 🏗️ Projects Dashboard
+![Projects](.github/assets/projects.png)
+*Central hub for project management with card-based layout, owner information, and creation timestamps. Features role-based access controls and seamless project creation workflow.*
+
+### 👥 Team Management
+![Members](.github/assets/members.png)
+*Comprehensive member management with role-based permissions, active invites system, and ownership transfer capabilities. Includes avatar display and granular access controls.*
+
+### 💳 Billing & Analytics
+![Billing](.github/assets/billing.png)
+*Transparent cost breakdown showing project and seat-based pricing with real-time calculations. Enterprise-ready billing infrastructure with detailed usage metrics.*
+
+## ☁️ Infrastructure
+
+### 🏗️ Cloud Architecture
+![](.github/assets/infra.png)
+
+### 🚀 Performance & Scalability
+
+| Metric | Value | Business Impact |
+|--------|-------|-----------------|
+| **Response Time** | < 100ms API response | Enhanced user experience |
+| **Auto-scaling** | 2-5 pods based on load | Cost optimization |
+| **Availability** | Multi-AZ deployment | 99.9% uptime SLA |
+| **Security** | Enterprise-grade defense in depth | Compliance ready |
+
+## 🔐 Security
 
 ### 🛡️ Simple & Powerful Authorization
 
@@ -153,64 +132,8 @@ MEMBER(user, { can }) {
 | **Network Security** | Kubernetes Network Policies | Micro-segmentation |
 | **Secrets Management** | AWS Secrets Manager integration | Centralized credential management |
 
-### ☁️ Cloud Infrastructure
 
-```mermaid
-graph TB
-    subgraph "AWS Cloud"
-        A[EKS Cluster] --> B[Managed Node Groups]
-        B --> C[Auto Scaling Groups]
-        C --> D[Multi-AZ Deployment]
-        
-        E[ECR Registry] --> F[Vulnerability Scanning]
-        F --> G[Image Security]
-        
-        H[VPC] --> I[Private Subnets]
-        I --> J[Public Subnets]
-        J --> K[Internet Gateway]
-        
-        L[Secrets Manager] --> M[Encrypted Storage]
-        N[Parameter Store] --> O[Configuration Management]
-    end
-    
-    A --> E
-    A --> H
-    A --> L
-    A --> N
-```
-
-### 🚀 Performance & Scalability
-
-| Metric | Value | Business Impact |
-|--------|-------|-----------------|
-| **Response Time** | < 100ms API response | Enhanced user experience |
-| **Auto-scaling** | 2-5 pods based on load | Cost optimization |
-| **Availability** | Multi-AZ deployment | 99.9% uptime SLA |
-| **Security** | Enterprise-grade defense in depth | Compliance ready |
-
-## 🎨 Frontend & Database
-
-### 🖥️ Modern React Architecture
-
-```mermaid
-graph TB
-    subgraph "Frontend Architecture"
-        A[Next.js 15 App Router] --> B[Server Components]
-        B --> C[Client Components]
-        C --> D[Radix UI Components]
-        D --> E[Tailwind CSS Styling]
-        
-        F[TanStack Query] --> G[Server State Management]
-        H[Intercepting Routes] --> I[Modal Overlays]
-        J[Theme System] --> K[Dark/Light Mode]
-    end
-    
-    A --> F
-    A --> H
-    A --> J
-```
-
-### 🗄️ Database Design
+## 🗄️ Database Design
 ![](.github/assets/erd.png)
 
 ## 📊 API & Development
@@ -241,33 +164,14 @@ app.post('/organizations/:slug/projects', {
 
 ### 🚀 Development Experience
 
-```mermaid
-graph LR
-    A[Monorepo] --> B[Turbo Build System]
-    B --> C[Shared Packages]
-    C --> D[Type-safe Configuration]
-    D --> E[Docker Compose]
-    E --> F[Prisma Studio]
-    
-    G[GitHub Actions] --> H[CI/CD Pipeline]
-    H --> I[Automated Testing]
-    I --> J[Code Quality Checks]
-    J --> K[Security Scanning]
-```
+**Modern development workflow with excellent tooling:**
 
-### 🎯 Technical Highlights
-
-This project demonstrates expertise in:
-
-| Category | Technologies | Business Impact |
-|----------|--------------|-----------------|
-| **Full-Stack Architecture** | Next.js + Fastify + PostgreSQL | Seamless integration |
-| **Cloud-Native Development** | Kubernetes + Docker + AWS | Scalable infrastructure |
-| **DevOps Excellence** | CI/CD + Terraform + GitHub Actions | Automated deployments |
-| **Security Implementation** | OIDC + JWT + RBAC | Enterprise compliance |
-| **Modern TypeScript** | End-to-end type safety | Developer productivity |
-| **Database Design** | Prisma + PostgreSQL + Migrations | Data integrity |
-| **API Design** | RESTful + OpenAPI + Zod | Developer experience |
+- 🏗️ **Monorepo**: Turbo build system for fast, efficient builds
+- 📦 **Shared Packages**: Reusable auth and environment management
+- 🔧 **Type-safe Configuration**: End-to-end TypeScript validation
+- 🐳 **Docker Compose**: One-command local development setup
+- 🗄️ **Prisma Studio**: Visual database management
+- 🚀 **CI/CD Pipeline**: Automated testing, quality checks, and security scanning
 
 ## 🚀 Getting Started
 
