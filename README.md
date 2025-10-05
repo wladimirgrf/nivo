@@ -190,7 +190,7 @@ app.post('/organizations/:slug/projects', {
 
 ```bash
 # 1. Clone and install dependencies
-git clone <repository>
+git clone https://github.com/wladimirgrf/nivo.git
 cd nivo
 npm install
 
