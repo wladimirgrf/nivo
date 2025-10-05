@@ -140,6 +140,8 @@ MEMBER(user, { can }) {
 
 ### 🔌 RESTful API with OpenAPI
 
+![Swagger Documentation](.github/assets/swagger.png)
+
 ```typescript
 // Type-safe route definitions with Zod validation
 app.post('/organizations/:slug/projects', {
@@ -202,6 +204,9 @@ npm run db:seed
 
 # 4. Start development servers
 npm run dev
+
+# 5. Access API documentation
+# Open http://localhost:3333/docs for interactive Swagger UI
 ```
 
 ### ☁️ Production Deployment
