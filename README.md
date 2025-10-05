@@ -206,12 +206,8 @@ npm run dev
 
 ### ☁️ Production Deployment
 
-#### 🗄️ Database Setup (Required)
-**You need an external hosted database before deployment:**
-
-- **AWS RDS**: Create PostgreSQL instance
-- **Neon**: Serverless PostgreSQL (recommended for development)
-- **Any PostgreSQL provider**: Ensure connection string is available
+> [!Important]
+> _**Database Required**: You need an external hosted PostgreSQL database before deployment. Options include AWS RDS, Neon (recommended for development), or any PostgreSQL provider. Ensure connection string is available._
 
 #### 🔐 AWS Secrets Manager Setup
 ```bash
@@ -276,16 +272,8 @@ terraform apply
 # Push to master branch triggers full deployment pipeline
 ```
 
-> **Note**: All application deployment is automated via GitHub Actions with OIDC authentication.
-
-### 🎯 Quick Start Commands
-
-| Command | Purpose | Output |
-|---------|---------|--------|
-| `npm run dev` | Start development servers | Frontend + API |
-| `npm run build` | Build for production | Optimized bundles |
-| `npm run lint` | Code quality checks | ESLint reports |
-| `npm run db:studio` | Database management | Prisma Studio UI |
+> [!Note]
+> _All application deployment is automated via GitHub Actions with OIDC authentication._
 
 ## 📈 Performance & Scale
 
