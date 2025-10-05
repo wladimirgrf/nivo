@@ -73,18 +73,8 @@ nivo/
 *Transparent cost calculation showing project and seat-based pricing ($20/project, $10/seat). Real-time usage tracking with detailed breakdown and totals.*
 
 ## ☁️ Infrastructure
-
-### 🏗️ Cloud Architecture
 ![](.github/assets/infra.png)
-
-### 🚀 Performance & Scalability
-
-| Metric | Value | Business Impact |
-|--------|-------|-----------------|
-| **Response Time** | Optimized for low latency | Enhanced user experience |
-| **Auto-scaling** | 1-2 pods based on load | Cost optimization |
-| **Availability** | Multi-AZ ready deployment | High availability |
-| **Security** | Enterprise-grade defense in depth | Compliance ready |
+*AWS EKS infrastructure with VPC, ECR, and managed node groups. Fully automated deployment via Terraform and GitHub Actions.*
 
 ## 🔐 Security
 
@@ -162,7 +152,6 @@ app.post('/organizations/:slug/projects', {
 | **Type Safety** | Zod schemas + TypeScript | Reduced bugs, better DX |
 | **Documentation** | OpenAPI + Swagger UI | Developer onboarding |
 | **Authentication** | JWT middleware | Secure API access |
-| **Health Monitoring** | Kubernetes endpoints | Production reliability |
 | **Validation** | Request/response schemas | Data integrity |
 
 ## 🚀 Getting Started
@@ -284,18 +273,29 @@ terraform apply
 
 ## 📈 Performance & Scale
 
-### 🎯 Business Value Proposition
+### 🚀 Production-Ready Architecture
 
-**For Technical Teams:**
-- ✅ **Modern Stack**: Latest technologies with best practices
-- ✅ **Type Safety**: End-to-end TypeScript for reliability
-- ✅ **Scalable Architecture**: Cloud-native design for growth
-- ✅ **Developer Experience**: Excellent tooling and documentation
+| **Capability** | **Implementation** | **Business Impact** |
+|----------------|-------------------|---------------------|
+| **Auto-Scaling** | Kubernetes HPA (1-2 pods) | Handles traffic spikes automatically |
+| **High Availability** | Multi-AZ ready deployment | Minimizes downtime and service interruptions |
+| **Container Orchestration** | EKS with managed node groups | Reduces operational overhead |
+| **Infrastructure as Code** | Terraform with remote state | Consistent, reproducible deployments |
+| **Security Scanning** | ECR vulnerability scanning | Proactive security risk management |
+| **Monitoring Ready** | Health checks and endpoints | Real-time system visibility |
 
-**For Business Stakeholders:**
-- ✅ **Enterprise Security**: RBAC, OIDC, and compliance-ready
-- ✅ **Cost Effective**: Auto-scaling and resource optimization
-- ✅ **Production Ready**: Battle-tested infrastructure
-- ✅ **Future Proof**: Modern architecture for long-term success
+### 💼 Business Value Proposition
 
+**🎯 For Technical Leadership:**
+- **Reduced Time-to-Market**: Modern stack accelerates feature development
+- **Lower Operational Costs**: Auto-scaling prevents over-provisioning
+- **Risk Mitigation**: Type-safe codebase reduces production bugs
+- **Team Productivity**: Excellent developer experience attracts talent
 
+**📊 For Business Stakeholders:**
+- **Scalability**: Architecture supports growth from startup to enterprise
+- **Compliance Ready**: Enterprise-grade security meets regulatory requirements  
+- **Cost Predictability**: Transparent billing system and resource optimization
+- **Competitive Advantage**: Modern tech stack enables rapid innovation
+
+> **Built for the real world** - This isn't just a demo. It's production-ready infrastructure that scales with business needs.
