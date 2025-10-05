@@ -22,12 +22,12 @@
 
 | Feature | Description | Business Value |
 |---------|-------------|----------------|
-| 🏢 **Multi-Tenant Organizations** | Domain-based user attachment with custom branding | Scalable B2B SaaS model |
-| 🔐 **Advanced RBAC** | Three-tier permission system (ADMIN, MEMBER, BILLING) | Enterprise security compliance |
-| 📋 **Project Management** | Owner-based access controls with team collaboration | Enhanced productivity |
-| 👥 **Team Collaboration** | Invitation system with role-based access | Streamlined onboarding |
-| 🔑 **Dual Authentication** | GitHub OAuth + email/password | Flexible user access |
-| 💳 **Billing Infrastructure** | Ready for subscription management | Revenue generation ready |
+| **Multi-Tenant Organizations** | Domain-based user attachment with custom branding | Scalable B2B SaaS model |
+| **Advanced RBAC** | Three-tier permission system (ADMIN, MEMBER, BILLING) | Enterprise security compliance |
+| **Project Management** | Owner-based access controls with team collaboration | Enhanced productivity |
+| **Team Collaboration** | Invitation system with role-based access | Streamlined onboarding |
+| **Dual Authentication** | GitHub OAuth + email/password | Flexible user access |
+| **Billing Infrastructure** | Ready for subscription management | Revenue generation ready |
 
 ## 🏗️ Architecture
 
@@ -46,7 +46,7 @@ nivo/
 
 ### 🛠️ Technology Stack
 
-| 🖥️ **Frontend** | ⚙️ **Backend** | ☁️ **Infrastructure** |
+| **Frontend** | **Backend** | **Infrastructure** |
 |------------------|-----------------|----------------------|
 | Next.js 15 + React 19 RC | Fastify + TypeScript + Prisma ORM | Kubernetes (EKS) with auto-scaling |
 | Radix UI + Tailwind CSS | PostgreSQL with advanced indexing | Terraform IaC with remote state |
@@ -116,10 +116,10 @@ MEMBER(user, { can }) {
 ```
 
 **Why is it so easy?**
-- 🎯 **One API**: Same `defineAbilityFor()` works in any app
-- 🔄 **Reusable**: Same rules work everywhere (frontend, backend, server actions)
-- 🚀 **Extensible**: Add new permissions without breaking existing ones
-- 🛡️ **Type-safe**: TypeScript ensures you don't make mistakes
+- **One API**: Same `defineAbilityFor()` works in any app
+- **Reusable**: Same rules work everywhere (frontend, backend, server actions)
+- **Extensible**: Add new permissions without breaking existing ones
+- **Type-safe**: TypeScript ensures you don't make mistakes
 
 ### 🔒 Security Features Matrix
 
@@ -166,12 +166,12 @@ app.post('/organizations/:slug/projects', {
 
 **Modern development workflow with excellent tooling:**
 
-- 🏗️ **Monorepo**: Turbo build system for fast, efficient builds
-- 📦 **Shared Packages**: Reusable auth and environment management
-- 🔧 **Type-safe Configuration**: End-to-end TypeScript validation
-- 🐳 **Docker Compose**: One-command local development setup
-- 🗄️ **Prisma Studio**: Visual database management
-- 🚀 **CI/CD Pipeline**: Automated testing, quality checks, and security scanning
+- **Monorepo**: Turbo build system for fast, efficient builds
+- **Shared Packages**: Reusable auth and environment management
+- **Type-safe Configuration**: End-to-end TypeScript validation
+- **Docker Compose**: One-command local development setup
+- **Prisma Studio**: Visual database management
+- **CI/CD Pipeline**: Automated testing, quality checks, and security scanning
 
 ## 🚀 Getting Started
 
@@ -206,6 +206,66 @@ npm run dev
 
 ### ☁️ Production Deployment
 
+#### 🗄️ Database Setup (Required)
+**You need an external hosted database before deployment:**
+
+- **AWS RDS**: Create PostgreSQL instance
+- **Neon**: Serverless PostgreSQL (recommended for development)
+- **Any PostgreSQL provider**: Ensure connection string is available
+
+#### 🔐 AWS Secrets Manager Setup
+```bash
+# 1. Create database secret (structured format)
+aws secretsmanager create-secret \
+  --name "prod/nivo/postgres" \
+  --secret-string '{
+    "username": "your-db-username",
+    "password": "your-db-password", 
+    "host": "your-db-host",
+    "port": "5432",
+    "dbname": "your-db-name"
+  }'
+
+# 2. Create GitHub OAuth secret
+aws secretsmanager create-secret \
+  --name "prod/github/oauth" \
+  --secret-string '{
+    "github_oauth_client_id": "your-github-client-id",
+    "github_oauth_client_secret": "your-github-client-secret",
+    "github_oauth_client_redirect_uri": "https://your-domain.com/api/auth/callback/github"
+  }'
+
+# 3. Create app secrets
+aws secretsmanager create-secret \
+  --name "prod/app" \
+  --secret-string '{
+    "jwt_secret": "your-jwt-secret-key"
+  }'
+```
+
+#### 🏗️ Terraform State Setup
+```bash
+# 1. Create DynamoDB table for state locking
+aws dynamodb create-table \
+  --table-name terraform-state-lock \
+  --attribute-definitions AttributeName=LockID,AttributeType=S \
+  --key-schema AttributeName=LockID,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST
+
+# 2. Create S3 bucket for state storage
+aws s3 mb s3://your-terraform-state-bucket
+```
+
+#### 🔑 GitHub OIDC Setup
+```bash
+# 1. Create OIDC Identity Provider in AWS IAM
+# 2. Create IAM Role with trust policy for GitHub Actions
+# 3. Add Role ARN to GitHub Secrets:
+#    - Go to Repository Settings > Secrets and Variables > Actions
+#    - Add secret: AWS_OIDC_ROLE = "arn:aws:iam::ACCOUNT:role/GitHubActionsRole"
+```
+
+#### 🚀 Deploy Infrastructure
 ```bash
 # 1. Deploy infrastructure
 cd iac
@@ -215,6 +275,8 @@ terraform apply
 # 2. CI/CD handles application deployment automatically
 # Push to master branch triggers full deployment pipeline
 ```
+
+> **Note**: All application deployment is automated via GitHub Actions with OIDC authentication.
 
 ### 🎯 Quick Start Commands
 
