@@ -64,9 +64,13 @@ nivo/
 ![Projects](.github/assets/projects.png)
 *Central hub for project management with card-based layout, owner information, and creation timestamps. Features role-based access controls and seamless project creation workflow.*
 
+---
+
 ### 👥 Team Management
 ![Members](.github/assets/members.png)
 *Comprehensive member management with role-based permissions, active invites system, and ownership transfer capabilities. Includes avatar display and granular access controls.*
+
+---
 
 ### 💳 Billing & Analytics
 ![Billing](.github/assets/billing.png)
