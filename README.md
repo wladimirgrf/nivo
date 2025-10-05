@@ -27,7 +27,7 @@
 | **Project Management** | Owner-based access controls with team collaboration | Enhanced productivity |
 | **Team Collaboration** | Invitation system with role-based access | Streamlined onboarding |
 | **Dual Authentication** | GitHub OAuth + email/password | Flexible user access |
-| **Billing Infrastructure** | Ready for subscription management | Revenue generation ready |
+| **Billing System** | Cost calculation and tracking | Revenue monitoring ready |
 
 ## 🏗️ Architecture
 
@@ -54,6 +54,10 @@ nivo/
 | Dark/light theme system | Zod validation + CASL authorization | GitHub Actions CI/CD with OIDC |
 | TypeScript + ESLint + Prettier | Health checks + Error handling | AWS: ECR, EKS, VPC, Secrets Manager |
 
+### 🗄️ Database Design
+![](.github/assets/erd.png)
+*PostgreSQL database with optimized schema for multi-tenant SaaS operations, featuring role-based access control, project management, and billing tracking.*
+
 ## 📱 App Experience
 
 ### 🏗️ Projects Dashboard
@@ -66,7 +70,7 @@ nivo/
 
 ### 💳 Billing & Analytics
 ![Billing](.github/assets/billing.png)
-*Transparent cost breakdown showing project and seat-based pricing with real-time calculations. Enterprise-ready billing infrastructure with detailed usage metrics.*
+*Transparent cost calculation showing project and seat-based pricing ($20/project, $10/seat). Real-time usage tracking with detailed breakdown and totals.*
 
 ## ☁️ Infrastructure
 
@@ -77,9 +81,9 @@ nivo/
 
 | Metric | Value | Business Impact |
 |--------|-------|-----------------|
-| **Response Time** | < 100ms API response | Enhanced user experience |
-| **Auto-scaling** | 2-5 pods based on load | Cost optimization |
-| **Availability** | Multi-AZ deployment | 99.9% uptime SLA |
+| **Response Time** | Optimized for low latency | Enhanced user experience |
+| **Auto-scaling** | 1-2 pods based on load | Cost optimization |
+| **Availability** | Multi-AZ ready deployment | High availability |
 | **Security** | Enterprise-grade defense in depth | Compliance ready |
 
 ## 🔐 Security
@@ -133,9 +137,6 @@ MEMBER(user, { can }) {
 | **Secrets Management** | AWS Secrets Manager integration | Centralized credential management |
 
 
-## 🗄️ Database Design
-![](.github/assets/erd.png)
-
 ## 📊 API & Development
 
 ### 🔌 RESTful API with OpenAPI
@@ -164,18 +165,19 @@ app.post('/organizations/:slug/projects', {
 | **Health Monitoring** | Kubernetes endpoints | Production reliability |
 | **Validation** | Request/response schemas | Data integrity |
 
-### 🚀 Development Experience
+## 🚀 Getting Started
+
+### 🛠️ Developer Experience
 
 **Modern development workflow with excellent tooling:**
 
 - **Monorepo**: Turbo build system for fast, efficient builds
-- **Shared Packages**: Reusable auth and environment management
+- **Shared Packages**: Reusable auth and environment management  
 - **Type-safe Configuration**: End-to-end TypeScript validation
 - **Docker Compose**: One-command local development setup
 - **Prisma Studio**: Visual database management
+- **Interactive API Docs**: Swagger UI at `/docs` endpoint
 - **CI/CD Pipeline**: Automated testing, quality checks, and security scanning
-
-## 🚀 Getting Started
 
 ### 📋 Prerequisites
 
@@ -281,15 +283,6 @@ terraform apply
 > _All application deployment is automated via GitHub Actions with OIDC authentication._
 
 ## 📈 Performance & Scale
-
-### 🚀 Performance Metrics
-
-| Metric | Value | Business Impact |
-|--------|-------|-----------------|
-| **API Response Time** | < 100ms | Enhanced user experience |
-| **Auto-scaling Range** | 2-5 pods based on load | Cost optimization |
-| **Availability** | Multi-AZ deployment | 99.9% uptime SLA |
-| **Security Grade** | Enterprise-grade | Compliance ready |
 
 ### 🎯 Business Value Proposition
 
