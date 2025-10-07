@@ -78,7 +78,7 @@ nivo/
 
 ## ☁️ Infrastructure
 ![](.github/assets/infra.png)
-*AWS EKS infrastructure with VPC, ECR, and managed node groups. Fully automated deployment via Terraform and GitHub Actions.*
+*Complete end-to-end architecture showing user flow from Next.js frontend through EKS auto-scaling API pods to PostgreSQL database, with GitHub Actions CI/CD pipeline, AWS Secrets Manager integration, and Terraform infrastructure automation.*
 
 ## 🔐 Security
 
