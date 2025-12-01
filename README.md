@@ -1,17 +1,15 @@
 # nivo
 
-<p float="left">
-  <img alt="terraform" src=".github/assets/terraform.svg" height="50"/> &nbsp;
-  <img alt="aws" src=".github/assets/aws.svg" height="38" /> &nbsp;
-  <img alt="kubernets" src=".github/assets/kubernetes.svg" height="50"/> &nbsp;
-  <img alt="fastify" src=".github/assets/fastify.svg" height="50"/> &nbsp;
-  <img alt="nextjs" src=".github/assets/nextjs.svg" height="50"/> &nbsp;
-  <img alt="typescript" src=".github/assets/typescript.svg" height="50"/> &nbsp;
-  <img alt="prisma" src=".github/assets/prisma.svg" height="50"/> &nbsp;
-  <img alt="postgresql" src=".github/assets/postgresql.svg" height="50"/> &nbsp;
-  <img alt="docker" src=".github/assets/docker.svg" height="50"/> &nbsp;
-  <img alt="swagger" src=".github/assets/swagger.svg" height="50"/> 
-</p>
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-FF9900?logo=amazonaws&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white)
+![Fastify](https://img.shields.io/badge/Fastify-000000?logo=fastify&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=black)
 
 
 ## 🎯 Overview
